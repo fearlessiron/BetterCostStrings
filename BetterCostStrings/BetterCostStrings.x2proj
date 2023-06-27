@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>396de170-3158-46b9-a917-b3ed45fc1d67</Guid>
+    <Name>BetterCostStrings</Name>
+    <Description>Shows inventory counts and colour-codes items in cost strings when building items, starting research, etc.</Description>
+    <SteamPublishID>2995356756</SteamPublishID>
+    <AssemblyName>BetterCostStrings</AssemblyName>
+    <RootNamespace>BetterCostStrings</RootNamespace>
+    <ProjectGuid>{6c7a2e76-7b0d-4f7c-b4d9-11bc1bffed8d}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Config\**" />
+    <Content Include="Content\**" />
+    <Content Include="Localization\**" />
+    <Content Include="Src\**" />
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Content\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\BetterCostStrings\" />
+    <Folder Include="Src\BetterCostStrings\Classes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
