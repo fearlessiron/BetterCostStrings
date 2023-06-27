@@ -18,7 +18,7 @@
         {
             "label": "Clean",
             "type": "shell",
-            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\X2ModBuildCommon\\clean.ps1' -modName 'BetterCostStrings' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}'",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\X2ModBuildCommon\\clean.ps1' -modName 'BetterCostStringsWotC' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}'",
             "group": "build",
             "problemMatcher": []
         },

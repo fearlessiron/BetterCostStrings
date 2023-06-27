@@ -1,4 +1,4 @@
-class X2DownloadableContentInfo_BetterCostStrings extends X2DownloadableContentInfo;
+class X2DownloadableContentInfo_BetterCostStringsWotC extends X2DownloadableContentInfo;
 
 static event OnLoadedSavedGame()
 {

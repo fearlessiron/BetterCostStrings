@@ -11,7 +11,7 @@ $common = Join-Path -Path $ScriptDirectory "X2ModBuildCommon\build_common.ps1"
 Write-Host "Sourcing $common"
 . ($common)
 
-$builder = [BuildProject]::new("BetterCostStrings", $srcDirectory, $sdkPath, $gamePath, $targetPath)
+$builder = [BuildProject]::new("BetterCostStringsWotC", $srcDirectory, $sdkPath, $gamePath, $targetPath)
 
 switch ($config)
 {
