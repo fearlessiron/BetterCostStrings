@@ -14,7 +14,7 @@
     <Content Include="Content\**" />
     <Content Include="Localization\**" />
     <Content Include="Src\**" />
-    <Content Include="ReadMe.txt" />
+    <Content Include="README.md" />
     <Content Include="ModPreview.jpg" />
     <Content Include="Src\ModConfigMenuAPI\Classes\MCM_API.uc">
       <SubType>Content</SubType>
