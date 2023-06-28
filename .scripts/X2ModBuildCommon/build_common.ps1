@@ -63,7 +63,7 @@ class BuildProject {
 		$this.modNameFull = $mod
 		$this.modNameCanonical = $mod -Replace '[\s;]',''
 		$this.projectRoot = $projectRoot
-		$this.sdkPath = $sdkPath + "\\XCOM 2 SDK"
+		$this.sdkPath = $sdkPath
 		$this.gamePath = $gamePath
 		$this.targetPath = $targetPath
 	}
@@ -380,7 +380,12 @@ class BuildProject {
 		Write-Host "Read."
 
 		Write-Host "Writing mod metadata..."
-		Set-Content "$($this.xcomModPath)" "[mod]`npublishedFileId=$publishedId`nTitle=$title`nDescription=$description"
+		if ($this.sdkPath -clike "*Chosen*") {
+			Set-Content "$($this.xcomModPath)" "[mod]`npublishedFileId=$publishedId`nTitle=$title`nDescription=$description`nRequiresXPACK=true"
+		}
+		else {
+			Set-Content "$($this.xcomModPath)" "[mod]`npublishedFileId=$publishedId`nTitle=$title`nDescription=$description"
+		}
 		Write-Host "Written."
 
 		# Create CookedPCConsole folder for the mod

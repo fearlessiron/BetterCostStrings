@@ -2,30 +2,46 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "Build (vanilla)",
             "type": "shell",
-            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}' -config 'default'",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -modName 'BetterCostStrings' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 SDK' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}' -config 'default'",
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "Build debug",
+            "label": "Build (wotc)",
             "type": "shell",
-            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}' -config 'debug'",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -modName 'BetterCostStringsWotC' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 War of the Chosen SDK' -gamePath '${config:xcom.highlander.gameroot}\\XCom2-WarOfTheChosen' -targetPath '${config:xcom.highlander.targetpath}' -config 'default'",
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "Clean",
+            "label": "Build debug (vanilla)",
             "type": "shell",
-            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\X2ModBuildCommon\\clean.ps1' -modName 'BetterCostStrings' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}'",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -modName 'BetterCostStrings' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 SDK' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}' -config 'debug'",
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "Full rebuild",
-            "dependsOrder": "sequence",
-            "dependsOn": ["Clean", "Build"]
+            "label": "Build debug (wotc)",
+            "type": "shell",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\build.ps1' -modName 'BetterCostStringsWotC' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 War of the Chosen SDK' -gamePath '${config:xcom.highlander.gameroot}\\XCom2-WarOfTheChosen' -targetPath '${config:xcom.highlander.targetpath}' -config 'debug'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean (vanilla)",
+            "type": "shell",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\X2ModBuildCommon\\clean.ps1' -modName 'BetterCostStrings' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 SDK' -gamePath '${config:xcom.highlander.gameroot}' -targetPath '${config:xcom.highlander.targetpath}'",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean (wotc)",
+            "type": "shell",
+            "command": "powershell.exe –NonInteractive –ExecutionPolicy Unrestricted -file '${workspaceRoot}\\.scripts\\X2ModBuildCommon\\clean.ps1' -modName 'BetterCostStringsWotC' -srcDirectory '${workspaceRoot}' -sdkPath '${config:xcom.highlander.sdkroot}\\XCOM 2 War of the Chosen SDK' -gamePath '${config:xcom.highlander.gameroot}\\XCom2-WarOfTheChosen' -targetPath '${config:xcom.highlander.targetpath}'",
+            "group": "build",
+            "problemMatcher": []
         }
     ]
 }

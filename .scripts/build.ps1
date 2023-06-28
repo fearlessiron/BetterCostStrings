@@ -1,4 +1,5 @@
 Param(
+    [string] $modName, # Name of the mod to build
     [string] $srcDirectory, # the path that contains your mod's .XCOM_sln
     [string] $sdkPath, # the path to your SDK installation ending in "XCOM 2 War of the Chosen SDK"
     [string] $gamePath, # the path to your XCOM 2 installation ending in "XCOM2-WaroftheChosen"
@@ -11,7 +12,11 @@ $common = Join-Path -Path $ScriptDirectory "X2ModBuildCommon\build_common.ps1"
 Write-Host "Sourcing $common"
 . ($common)
 
-$builder = [BuildProject]::new("BetterCostStrings", $srcDirectory, $sdkPath, $gamePath, $targetPath)
+if ($null -eq $modName -or $modName -eq "") {
+    throw "`$modName empty???"
+}
+
+$builder = [BuildProject]::new($modName, $srcDirectory, $sdkPath, $gamePath, $targetPath)
 
 switch ($config)
 {
