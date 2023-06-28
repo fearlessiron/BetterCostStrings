@@ -10,10 +10,16 @@ static function bool ShouldHighlightSparseResource()
 	return `MCM_CH_GetValue(class'BetterCostStrings_Settings_Defaults'.default.ENABLE_HIGHLIGHT_SPARSE, class'BetterCostStrings_Settings'.default.ENABLE_HIGHLIGHT_SPARSE);
 }
 
+// BCS-3
+static function bool ShouldShowAvailableResources()
+{
+	return `MCM_CH_GetValue(class'BetterCostStrings_Settings_Defaults'.default.SHOW_AVAILABLE_RESOURCES, class'BetterCostStrings_Settings'.default.SHOW_AVAILABLE_RESOURCES);
+}
+
 static function String GetStrategyCostString(StrategyCost StratCost, array<StrategyCostScalar> CostScalars, optional float DiscountPercent)
 {
 	local int iResource, iArtifact, Quantity, Available;
-	local String strCost, strResourceCost, strArtifactCost, strResourcesRemaining;
+	local String strCost, strResourceCost, strArtifactCost, strArtifactsRemaining, strResourcesRemaining;
 	local StrategyCost ScaledStratCost;
 	local XComGameState_HeadquartersXCom XComHQ;
 
@@ -27,14 +33,14 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		strArtifactCost = String(Quantity) @ GetResourceDisplayName(ScaledStratCost.ArtifactCosts[iArtifact].ItemTemplateName, Quantity);
 
 		Available = XComHQ.GetResourceAmount(ScaledStratCost.ArtifactCosts[iArtifact].ItemTemplateName);
-		strResourcesRemaining = "(" $ String(Available) $ ")";
+		strArtifactsRemaining = "(" $ String(Available) $ ")";
 
 		if (!XComHQ.CanAffordResourceCost(ScaledStratCost.ArtifactCosts[iArtifact].ItemTemplateName, ScaledStratCost.ArtifactCosts[iArtifact].Quantity))
 		{
 			strArtifactCost = class'UIUtilities_Text'.static.GetColoredText(strArtifactCost, eUIState_Bad);
 			if (Available > 0)
 			{
-				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Bad);
+				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strArtifactsRemaining, eUIState_Bad);
 			}
 		}
 		else
@@ -42,11 +48,11 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
 			{
 				strArtifactCost = class'UIUtilities_Text'.static.GetColoredText(strArtifactCost, eUIState_Warning);
-				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Warning);
+				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strArtifactsRemaining, eUIState_Warning);
 			}
 			else {
 				strArtifactCost = class'UIUtilities_Text'.static.GetColoredText(strArtifactCost, eUIState_Good);
-				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Good);
+				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strArtifactsRemaining, eUIState_Good);
 			}
 		}
 
@@ -75,19 +81,31 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		strResourceCost = String(Quantity) @ GetResourceDisplayName(ScaledStratCost.ResourceCosts[iResource].ItemTemplateName, Quantity);
 
 		Available = XComHQ.GetResourceAmount(ScaledStratCost.ResourceCosts[iResource].ItemTemplateName);
+		strResourcesRemaining = "(" $ String(Available) $ ")";
 
 		if (!XComHQ.CanAffordResourceCost(ScaledStratCost.ResourceCosts[iResource].ItemTemplateName, ScaledStratCost.ResourceCosts[iResource].Quantity))
 		{
-			strResourceCost = class'UIUtilities_Text'.static.GetColoredText(strResourceCost, eUIState_Bad);
+			if (ShouldShowAvailableResources() && Available > 0)
+			{
+				strResourceCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Bad);
+			}
 		}
 		else
 		{
 			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
 			{
 				strResourceCost = class'UIUtilities_Text'.static.GetColoredText(strResourceCost, eUIState_Warning);
+				if (ShouldShowAvailableResources())
+				{
+					strResourceCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Warning);
+				}
 			}
 			else {
 				strResourceCost = class'UIUtilities_Text'.static.GetColoredText(strResourceCost, eUIState_Good);
+				if (ShouldShowAvailableResources())
+				{
+					strResourceCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Good);
+				}
 			}
 
 		}
