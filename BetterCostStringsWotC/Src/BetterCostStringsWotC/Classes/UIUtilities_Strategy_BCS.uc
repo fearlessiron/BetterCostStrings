@@ -4,6 +4,12 @@ class UIUtilities_Strategy_BCS extends UIUtilities_Strategy;
 
 `MCM_CH_StaticVersionChecker(class'BetterCostStrings_Settings_Defaults'.default.CONFIG_VERSION, class'BetterCostStrings_Settings'.default.CONFIG_VERSION)
 
+// BCS-1
+static function bool ShouldHighlightSparseResource()
+{
+	return `MCM_CH_GetValue(class'BetterCostStrings_Settings_Defaults'.default.ENABLE_HIGHLIGHT_SPARSE, class'BetterCostStrings_Settings'.default.ENABLE_HIGHLIGHT_SPARSE);
+}
+
 static function String GetStrategyCostString(StrategyCost StratCost, array<StrategyCostScalar> CostScalars, optional float DiscountPercent)
 {
 	local int iResource, iArtifact, Quantity, Available;
@@ -33,7 +39,7 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		}
 		else
 		{
-			if (Available < 2 * Quantity)
+			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
 			{
 				strArtifactCost = class'UIUtilities_Text'.static.GetColoredText(strArtifactCost, eUIState_Warning);
 				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strResourcesRemaining, eUIState_Warning);
@@ -76,7 +82,7 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		}
 		else
 		{
-			if (Available < 2 * Quantity)
+			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
 			{
 				strResourceCost = class'UIUtilities_Text'.static.GetColoredText(strResourceCost, eUIState_Warning);
 			}
