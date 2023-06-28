@@ -1,5 +1,9 @@
 class UIUtilities_Strategy_BCS extends UIUtilities_Strategy;
 
+`include(BetterCostStrings/Src/ModConfigMenuAPI/MCM_API_CfgHelpers.uci)
+
+`MCM_CH_StaticVersionChecker(class'BetterCostStrings_Settings_Defaults'.default.CONFIG_VERSION, class'BetterCostStrings_Settings'.default.CONFIG_VERSION)
+
 static function String GetStrategyCostString(StrategyCost StratCost, array<StrategyCostScalar> CostScalars, optional float DiscountPercent)
 {
 	local int iResource, iArtifact, Quantity, Available;
