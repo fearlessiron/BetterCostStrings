@@ -1,7 +1,7 @@
 ﻿# Better Cost Strings
 
-XCOM 2 mod that shows inventory counts and colour-codes entries in cost strings when building
-items, starting research, etc.
+XCOM 2 mod that shows inventory counts and highlights sparse artifacts and resources in cost strings
+when building items, starting research, etc.
 
 ## Compatibility
 
