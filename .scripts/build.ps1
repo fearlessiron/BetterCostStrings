@@ -30,4 +30,8 @@ switch ($config)
     default { ThrowFailure "Unknown build configuration $config" }
 }
 
+if ($sdkPath -clike "*Chosen*") {
+    $builder.IncludeSrc("$srcDirectory\X2WOTCCommunityHighlander\X2WOTCCommunityHighlander\Src")
+}
+
 $builder.InvokeBuild()
