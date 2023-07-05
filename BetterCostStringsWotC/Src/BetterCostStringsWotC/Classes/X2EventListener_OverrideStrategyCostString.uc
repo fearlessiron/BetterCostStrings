@@ -38,6 +38,11 @@ static function bool ShouldShowAvailableResources()
 	return `GETMCMVAR(SHOW_AVAILABLE_RESOURCES);
 }
 
+static function int GetSparseMultiplier()
+{
+	return `GETMCMVAR(SPARSE_WARNING_MULTIPLIER);
+}
+
 static function EventListenerReturn OnOverrideStrategyCostString(Object EventData, Object EventSource, XComGameState GameState, Name EventID, Object CallbackObject)
 {
 	local XComLWTuple Tuple;
@@ -55,7 +60,7 @@ static function EventListenerReturn OnOverrideStrategyCostString(Object EventDat
 
 	ShouldAddQuantity = (!IsResourceCost || ShouldShowAvailableResources());
 
-	CostString = GetStrategyCostString(ItemTemplateName, Quantity, IsResourceCost, ShouldHighlightSparseResource(), ShouldAddQuantity, 2);
+	CostString = GetStrategyCostString(ItemTemplateName, Quantity, IsResourceCost, ShouldHighlightSparseResource(), ShouldAddQuantity, GetSparseMultiplier());
 
 	Tuple.Data[3].s = CostString;
 
@@ -93,6 +98,6 @@ static function string GetStrategyCostString(name ItemTemplateName, int Quantity
 	{
 		CostString $= QuantityStockedSuffix;
 	}
-	
+
 	return class'UIUtilities_Text'.static.GetColoredText(CostString, Colour);
 }
