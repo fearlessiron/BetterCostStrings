@@ -2,8 +2,6 @@ class X2EventListener_OverrideStrategyCostString extends X2EventListener;
 
 `include(BetterCostStringsWotC/Src/ModConfigMenuAPI/MCM_API_CfgHelpers.uci)
 
-`MCM_CH_StaticVersionChecker(class'BetterCostStrings_Settings_Defaults'.default.CONFIG_VERSION, class'BetterCostStrings_Settings'.default.CONFIG_VERSION)
-
 static function array<X2DataTemplate> CreateTemplates()
 {
 	local array<X2DataTemplate> Templates;
@@ -31,13 +29,13 @@ static function CHEventListenerTemplate CreateListenerTemplate_OnOverrideStrateg
 // BCS-1
 static function bool ShouldHighlightSparseResource()
 {
-	return `MCM_CH_GetValue(class'BetterCostStrings_Settings_Defaults'.default.ENABLE_HIGHLIGHT_SPARSE, class'BetterCostStrings_Settings'.default.ENABLE_HIGHLIGHT_SPARSE);
+	return `GETMCMVAR(ENABLE_HIGHLIGHT_SPARSE);
 }
 
 // BCS-3
 static function bool ShouldShowAvailableResources()
 {
-	return `MCM_CH_GetValue(class'BetterCostStrings_Settings_Defaults'.default.SHOW_AVAILABLE_RESOURCES, class'BetterCostStrings_Settings'.default.SHOW_AVAILABLE_RESOURCES);
+	return `GETMCMVAR(SHOW_AVAILABLE_RESOURCES);
 }
 
 static function EventListenerReturn OnOverrideStrategyCostString(Object EventData, Object EventSource, XComGameState GameState, Name EventID, Object CallbackObject)
@@ -90,6 +88,11 @@ static function string GetStrategyCostString(name ItemTemplateName, int Quantity
 		Colour = eUIState_Good;
 	}
 
-	CostString = Quantity @ GetResourceDisplayName(inArray[i].ItemTemplateName, Quantity) $ (QuantityStocked > 0 ? QuantityStockedSuffix : "");
+	CostString = Quantity @ class'UIUtilities_Strategy'.static.GetResourceDisplayName(ItemTemplateName, Quantity);
+	if (QuantityStocked > 0)
+	{
+		CostString $= QuantityStockedSuffix;
+	}
+	
 	return class'UIUtilities_Text'.static.GetColoredText(CostString, Colour);
 }
