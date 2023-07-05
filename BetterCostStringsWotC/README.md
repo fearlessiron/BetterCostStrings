@@ -5,5 +5,5 @@ when building items, starting research, etc.
 
 ## Compatibility
 
-This mod can be activated for existing campaigns. It overrides the class "UIUtilities_Strategy",
-so it is incompatible with other mods that override the same class.
+This mod can be activated for existing campaigns. The X2WOTCCommunityHighlander mod (v1.26.3 or
+later) is required.
