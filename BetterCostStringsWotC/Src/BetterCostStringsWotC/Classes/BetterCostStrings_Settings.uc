@@ -43,11 +43,14 @@ simulated function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
     // Build the settings UI
     local MCM_API_SettingsPage page;
     local MCM_API_SettingsGroup group;
+	local string Version;
+
+	Version = "v" $ VERSION_MAJOR $ "." $ VERSION_MINOR $ "." $ VERSION_PATCH;
 
     LoadSavedSettings();
 
     page = ConfigAPI.NewSettingsPage(SettingsPageLabel);
-    page.SetPageTitle(PageTitleLabel);
+    page.SetPageTitle(PageTitleLabel @ Version);
     page.SetSaveHandler(SaveButtonClicked);
 
     group = page.AddGroup('BCSGeneralSettings', GroupGeneralSettingsLabel);
