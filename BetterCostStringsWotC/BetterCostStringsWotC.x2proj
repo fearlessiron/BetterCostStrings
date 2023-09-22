@@ -4,7 +4,10 @@
     <Guid>203e3c13-d44c-4d3e-9d79-c579f5b497b8</Guid>
     <Name>BetterCostStringsWotC</Name>
     <Description>Shows inventory counts and colour-codes entries in cost strings when building items, starting research, etc.</Description>
+    <!-- Mod ID release version -->
     <SteamPublishID>2995259605</SteamPublishID>
+    <!-- Mod ID beta version -->
+    <!--<SteamPublishID>3037822988</SteamPublishID>-->
     <AssemblyName>BetterCostStringsWotC</AssemblyName>
     <RootNamespace>BetterCostStringsWotC</RootNamespace>
     <ProjectGuid>{a5c546b1-08ce-45a4-9360-3fec58fba06b}</ProjectGuid>
