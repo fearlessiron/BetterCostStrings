@@ -8,6 +8,9 @@ const VERSION_PATCH = 0;
 // Config version
 var config int CONFIG_VERSION;
 
+// Localization for Mod Config Menu
+var public localized string	SettingsPageLabel, PageTitleLabel, GroupGeneralSettingsLabel;
+
 // Mod Config Menu boilerplate
 `include(BetterCostStringsWotC/Src/ModConfigMenuAPI/MCM_API_Includes.uci)
 
@@ -43,11 +46,11 @@ simulated function ClientModCallback(MCM_API_Instance ConfigAPI, int GameMode)
 
     LoadSavedSettings();
 
-    page = ConfigAPI.NewSettingsPage("Better Cost Strings");
-    page.SetPageTitle("Better Cost Strings");
+    page = ConfigAPI.NewSettingsPage(SettingsPageLabel);
+    page.SetPageTitle(PageTitleLabel);
     page.SetSaveHandler(SaveButtonClicked);
 
-    group = page.AddGroup('BCSGeneralSettings', "General settings");
+    group = page.AddGroup('BCSGeneralSettings', GroupGeneralSettingsLabel);
     // BCS-1
     `MCM_API_AutoAddCheckbox(group, SHOW_AVAILABLE_RESOURCES);
     // BCS-3
