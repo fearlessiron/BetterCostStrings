@@ -1,5 +1,10 @@
 class BetterCostStrings_Settings extends UIScreenListener config(BetterCostStrings_Settings);
 
+// Mod version
+const VERSION_MAJOR = 1;
+const VERSION_MINOR = 2;
+const VERSION_PATCH = 0;
+
 // Config version
 var config int CONFIG_VERSION;
 
