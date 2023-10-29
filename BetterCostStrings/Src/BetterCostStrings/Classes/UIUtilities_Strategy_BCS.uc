@@ -14,6 +14,11 @@ static function bool ShouldShowAvailableResources()
 	return `GETMCMVAR(SHOW_AVAILABLE_RESOURCES);
 }
 
+static function int GetSparseMultiplier()
+{
+	return `GETMCMVAR(SPARSE_WARNING_MULTIPLIER);
+}
+
 static function String GetStrategyCostString(StrategyCost StratCost, array<StrategyCostScalar> CostScalars, optional float DiscountPercent)
 {
 	local int iResource, iArtifact, Quantity, Available;
@@ -43,7 +48,7 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		}
 		else
 		{
-			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
+			if (ShouldHighlightSparseResource() && Available < GetSparseMultiplier() * Quantity)
 			{
 				strArtifactCost = class'UIUtilities_Text'.static.GetColoredText(strArtifactCost, eUIState_Warning);
 				strArtifactCost @= class'UIUtilities_Text'.static.GetColoredText(strArtifactsRemaining, eUIState_Warning);
@@ -90,7 +95,7 @@ static function String GetStrategyCostString(StrategyCost StratCost, array<Strat
 		}
 		else
 		{
-			if (ShouldHighlightSparseResource() && Available < 2 * Quantity)
+			if (ShouldHighlightSparseResource() && Available < GetSparseMultiplier() * Quantity)
 			{
 				strResourceCost = class'UIUtilities_Text'.static.GetColoredText(strResourceCost, eUIState_Warning);
 				if (ShouldShowAvailableResources())
