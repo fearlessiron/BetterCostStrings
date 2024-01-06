@@ -1,4 +1,4 @@
-class BetterCostStrings_Settings extends UIScreenListener config(BetterCostStrings_Settings);
+class BetterCostStrings_Settings extends Object config(BetterCostStrings_Settings);
 
 // Mod version
 const VERSION_MAJOR = 1;
