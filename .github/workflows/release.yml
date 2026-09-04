@@ -1,0 +1,76 @@
+name: Release
+
+# Releases are triggered manually only. The mod itself cannot be built in
+# GitHub Actions, so the release is created as a draft and the built assets
+# have to be attached by hand before publishing it.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run (analyse commits and print the next version, but do not tag, commit or create a release)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          # Deploy key with write access, listed as bypass actor of the
+          # master rulesets. Switches origin to SSH so that the release commit,
+          # the tag and the development version bump can be pushed to master.
+          ssh-key: ${{ secrets.RELEASE_DEPLOY_KEY }}
+
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v6
+        with:
+          semantic_version: 24
+          extra_plugins: |
+            @semantic-release/exec@7
+            @semantic-release/git@10
+          dry_run: ${{ inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Summary
+        if: ${{ !inputs.dry_run }}
+        env:
+          PUBLISHED: ${{ steps.semantic.outputs.new_release_published }}
+          VERSION: ${{ steps.semantic.outputs.new_release_version }}
+          TAG: ${{ steps.semantic.outputs.new_release_git_tag }}
+          RELEASES_URL: ${{ github.server_url }}/${{ github.repository }}/releases
+        run: |
+          if [ "$PUBLISHED" = "true" ]; then
+            {
+              echo "## Draft release $VERSION created"
+              echo
+              echo "Tag \`$TAG\` has been pushed and the source version has been bumped to the next development version."
+              echo
+              echo "Next steps:"
+              echo
+              echo "1. Pull \`master\` and build the mod locally."
+              echo "2. Attach the built assets to the draft release: $RELEASES_URL"
+              echo "3. Publish the release."
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "## No release created"
+              echo
+              echo "There are no releasable commits (\`feat\`, \`fix\`, \`perf\` or a breaking change) since the last release."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi

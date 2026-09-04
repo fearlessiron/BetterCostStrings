@@ -1,0 +1,35 @@
+{
+  "branches": ["master"],
+  "tagFormat": "v${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "bash .scripts/set-version.sh ${nextRelease.version}",
+        "successCmd": "bash .scripts/set-dev-version.sh ${nextRelease.version} ${branch.name}"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "BetterCostStrings/Src/BetterCostStrings/Classes/BetterCostStrings_Settings.uc",
+          "BetterCostStringsWotC/Src/BetterCostStringsWotC/Classes/BetterCostStrings_Settings.uc"
+        ],
+        "message": "build: prepare release ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "draftRelease": true,
+        "releaseNameTemplate": "<%= nextRelease.version %>",
+        "successCommentCondition": false,
+        "failCommentCondition": false,
+        "releasedLabels": false
+      }
+    ]
+  ]
+}
