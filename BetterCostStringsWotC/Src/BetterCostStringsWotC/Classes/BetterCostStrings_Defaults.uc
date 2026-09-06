@@ -12,3 +12,6 @@ var config bool SHOW_AVAILABLE_RESOURCES;
 // Factor by which available artifacts and resources are multiplied to determine the threshold
 // below which they are considered sparse
 var config int SPARSE_WARNING_MULTIPLIER;
+
+// Print the ASCII-art banner to the log on startup
+var config bool LOG_BANNER;
