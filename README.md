@@ -8,6 +8,14 @@ when building items, starting research, etc.
 This mod can be activated for existing campaigns. It overrides the class "UIUtilities_Strategy",
 so it is incompatible with other mods that override the same class.
 
+## Logging
+
+On startup the mod prints a banner with its version to `Launch.log`. If you find this noisy, set
+`LOG_BANNER=false` in `XComBetterCostStrings_Defaults.ini`. Other mods can override the setting
+from their own config by adding that line under the
+`[BetterCostStrings.BetterCostStrings_Defaults]` (Vanilla) or
+`[BetterCostStringsWotC.BetterCostStrings_Defaults]` (War of the Chosen) section.
+
 ## Building
 
 The mod can be built with Visual Studio Code. Be sure to add a `settings.json` file to the
